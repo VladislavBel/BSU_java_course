@@ -1,6 +1,7 @@
 import java.util.*;
+import java.util.function.Function;
 import java.util.function.IntSupplier;
-
+import java.util.stream.Collectors;
 
 
 class IntSupplierTest {
@@ -20,13 +21,24 @@ public class lab2 {
 
     Random a = new Random(0);
 
-    public static List<Vector3D> GenVecList(int n){
+    public static List<Vector3D> GenVecList(int n, IntSupplier sup){
         List<Vector3D> VectorList = new ArrayList<>();
         for (int i = 0; i < n; i++){
-            Vector3D V = new Vector3D(a.nextInt(100), a.nextInt(100), a.nextInt(100));
+            Vector3D V = new Vector3D(sup.getAsInt(), sup.getAsInt(), sup.getAsInt());
             VectorList.add(V);
         }
-        return v1;
+        return VectorList;
 
+    }
+
+    public static List<Vector3D> SortVecList(List<Vector3D> vecList, Comparator<Vector3D> comp){
+
+        return vecList.stream().sorted().collect(Collectors.toList());
+
+    }
+
+    public static List<Long> mapVecList(List<Vector3D> vecList, Function<Vector3D, Long> func){
+
+        return vecList.stream().map(func).collect(Collectors.toList());
     }
 }
